@@ -1,0 +1,5 @@
+.idea
+.aiforopenide
+*.iml
+.mvn
+target

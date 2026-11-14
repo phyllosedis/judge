@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+
+    <featureManager>
+        <feature>restfulWS-3.1</feature>
+        <feature>jsonb-3.0</feature>
+        <feature>cdi-4.0</feature>
+        <feature>persistence-3.1</feature>
+        <feature>jdbc-4.2</feature>
+        <feature>jndi-1.0</feature>
+        <feature>beanValidation-3.0</feature>
+        <feature>appSecurity-5.0</feature>
+        <feature>mpConfig-3.1</feature>
+        <feature>mpHealth-4.0</feature>
+        <feature>mpMetrics-5.1</feature>
+    </featureManager>
+
+
+    <keyStore id="defaultKeyStore" password="${keystore_password}"/>
+
+
+    <basicRegistry id="basic" realm="BasicRealm">
+    </basicRegistry>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="localhost"
+                  httpPort="9080"
+                  httpsPort="9443"/>
+
+    <applicationManager autoExpand="true"/>
+
+    <webApplication contextRoot="/" location="judge-api.war"/>
+
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true"/>
+
+    <library id="PostgresLib">
+        <fileset dir="${server.config.dir}/lib/global" includes="postgresql-*.jar"/>
+    </library>
+
+    <dataSource id="JudgeDataSource" jndiName="jdbc/judgeDS">
+        <jdbcDriver libraryRef="PostgresLib"/>
+        <properties.postgresql serverName="${DB_HOST}"
+                               portNumber="${DB_PORT}"
+                               databaseName="${DB_NAME}"
+                               user="${DB_USER}"
+                               password="${DB_PASSWORD}"
+                               stringType="unspecified"/>
+    </dataSource>
+
+</server>
